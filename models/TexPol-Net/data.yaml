@@ -1,0 +1,14 @@
+# Root directory of the dataset
+# Replace this path with the location where you store the dataset
+path: /path/to/your/dataset
+
+# Dataset splits
+# Each split should contain a corresponding .txt file
+# listing image paths (one per line)
+train: train.txt
+val: val.txt
+test: test.txt
+
+# Class names
+names:
+  0: bacteria colony
