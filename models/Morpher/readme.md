@@ -6,8 +6,7 @@
 | What this repo provides | 1) Load sequence-organized YOLO-seg polygon annotations (`.txt`) and rasterize them into binary masks;<br>2) Temporal downsampling with a fixed stride `step`;<br>3) Autoregressive forecasting with **Morpher (GRU/LSTM/RNN/TransformerEncoder)**;<br>4) Report **mIoU, mAP@[.50:.95], HD, HD95, ASSD**, with optional physics-consistency statistics via `--phys_stats`. |
 | Method overview (paper-consistent) | **SpatialEncoder** encodes each binary mask frame into a latent vector `z_t` and retains multi-scale features for skip connections in the decoder;<br>**Morphon** performs attention-based aggregation over observed latent states with a gated fusion (`alpha`) to form a compact history summary;<br>Temporal modeling uses `arch ∈ {gru, lstm, rnn, transformer}` with sinusoidal temporal positional encoding;<br>Inference is **strict autoregressive**: each predicted frame is fed back (sigmoid → re-encode → append to history) until all future frames are generated. |
 | Requirements | Python 3.9+ (3.10 / 3.11 recommended);<br>PyTorch 2.0+ (2.1+ recommended when enabling `torch.compile`);<br>CUDA optional (GPU automatically enables AMP mixed precision);<br>Works on Windows / Linux. |
-| Installation | Use a virtual environment if possible. Minimal dependencies:<br><pre><code>pip install numpy scipy pillow torchvision opencv-python tqdm
-pip install timm</code></pre> |
+| Installation | Use a virtual environment if possible. Minimal dependencies:<br><pre><code>pip install numpy scipy pillow torchvision opencv-python tqdm timm</code></pre> |
 | Dataset | Training and testing use the **Prediction** subset of **[SwarmEvo](https://huggingface.co/datasets/SwarmEvo)**. See **Dataset layout** below. |
 
 Training and testing only require downloading the **Prediction** subset from **[SwarmEvo](https://huggingface.co/datasets/SwarmEvo)**  
