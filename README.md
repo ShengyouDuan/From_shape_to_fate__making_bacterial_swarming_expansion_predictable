@@ -1,4 +1,4 @@
-# From Shape to Fate  
+# From Shape to Fate: making bacterial swarming expansion predicate
 ## TexPol-Net & Morpher: Morphology-Aware Segmentation and Forecasting of Bacterial Swarming
 
 This repository provides the **complete, paper-aligned implementation** of a morphology-aware framework for making bacterial swarming expansion **predictable**.  
