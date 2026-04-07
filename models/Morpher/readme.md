@@ -33,7 +33,9 @@ dataset/
 ```
 
 
-| Training command (Transformer example) | ```bash
+| Training command (Transformer example) | See command below |
+
+```bash
 python Morpher.py train ^
   --arch transformer ^
   --train_path dataset\train ^
@@ -49,8 +51,9 @@ python Morpher.py train ^
   --log_csv results\train_log_transformer.csv ^
   --torch_compile ^
   --torch_compile_mode max-autotune
-``` |
-| Test command (Transformer example) | ```bash
+```
+| Test command (Transformer example) | See command below |
+```
 python Morpher.py test ^
   --arch transformer ^
   --weights results\best_transformer.pth ^
@@ -62,7 +65,7 @@ python Morpher.py test ^
   --out_csv results\test_metrics.csv ^
   --torch_compile ^
   --torch_compile_mode max-autotune
-``` |
+```
 
 ## Citation
 
