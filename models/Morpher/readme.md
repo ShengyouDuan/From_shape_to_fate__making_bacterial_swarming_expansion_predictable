@@ -33,12 +33,8 @@ dataset/
 ```
 
 
-**Images_for_prediction** provides all corresponding raw images and is used **only for visualization**, not required for training or testing. |
-| Annotation format (YOLO-seg polygons) | Each `.txt` may contain multiple lines. Each line: `cls x1 y1 x2 y2 ...` with **0–1 normalized** coordinates.<br>Implementation detail: polygons are filled into a single binary mask (multiple instances are unioned); `cls` is kept as a placeholder.<br>Sorting: the trailing number in the filename is used for ordering (use names like `0001.txt`). |
-| Training-time data augmentation | During training, geometric augmentations are applied to mask sequences, including random rotation, translation, and horizontal/vertical flipping. Validation and test sets are evaluated **without augmentation**. |
-| Optimization objective | Training optimizes a composite loss consisting of **Focal loss**, **Soft IoU loss**, and a **boundary-aware loss** (computed on downsampled masks for efficiency). |
-| Key hyperparameters (defaults from Config) | `img_size=640`;<br>`step=25`;<br>`obs_ratio=0.8`;<br>`batch_size=2`, `epochs=300`, `lr=5e-5`;<br>Training uses AdamW (`weight_decay=1e-4`) with warmup + cosine schedule;<br>GPU: AMP mixed precision + optional `torch.compile`. |
-| Training command (Transformer example) | <pre><code>python Morpher.py train ^
+| Training command (Transformer example) | ```bash
+python Morpher.py train ^
   --arch transformer ^
   --train_path dataset\train ^
   --val_path dataset\test ^
@@ -52,9 +48,10 @@ dataset/
   --save_name best_transformer.pth ^
   --log_csv results\train_log_transformer.csv ^
   --torch_compile ^
-  --torch_compile_mode max-autotune</code></pre> |
-| Training outputs | 1) Best checkpoint selected by **validation mIoU**;<br>2) Optional CSV training log with per-epoch metrics;<br>3) Console summaries and best-model notifications. |
-| Test command (Transformer example) | <pre><code>python Morpher.py test ^
+  --torch_compile_mode max-autotune
+``` |
+| Test command (Transformer example) | ```bash
+python Morpher.py test ^
   --arch transformer ^
   --weights results\best_transformer.pth ^
   --test_path dataset\test ^
@@ -64,13 +61,8 @@ dataset/
   --results_dir results ^
   --out_csv results\test_metrics.csv ^
   --torch_compile ^
-  --torch_compile_mode max-autotune</code></pre> |
-| Test outputs | 1) Frame-level metrics: `results/test_outputs/frame_metrics.csv`;<br>2) Sequence-level summary CSV;<br>3) Console summary statistics. |
-| Physics consistency (optional) | Enable via `--phys_stats`. Reported fields include `vel_RMSE`, `AI_abs_err`, `H2_abs_err`, `NAS_abs_err`, and `TCI`. |
-| Reproducibility notes | Stable filename sorting is required; ensure `T/step ≥ 2`; reduce batch size or disable `torch.compile` if GPU memory is limited. |
-| Common issues | Boundary metrics may become NaN when masks are empty; `torch.compile` may slow the first epoch; missing `timm` triggers an internal fallback. |
-| Maintainer note | Single-file entry point: `Morpher.py`. Training and testing are invoked via `train` / `test` subcommands. |
----
+  --torch_compile_mode max-autotune
+``` |
 
 ## Citation
 
