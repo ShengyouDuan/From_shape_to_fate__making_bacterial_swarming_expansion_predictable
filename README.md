@@ -12,7 +12,9 @@ TexPol-Net provides a high-quality morphological substrate, while **Morpher serv
 ---
 
 ## Overview
-
+<p align="center">
+  <img src="assets/figure1.jpg" width="800">
+</p>
 Bacterial swarming colonies exhibit complex, anisotropic expansion characterized by diffuse and fingered fronts.  
 Conventional video prediction models often fail to preserve boundary localization and structural coherence over extended time horizons.
 
