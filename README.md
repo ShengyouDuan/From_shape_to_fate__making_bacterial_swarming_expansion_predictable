@@ -1,11 +1,11 @@
 # From Shape to Fate: making bacterial swarming expansion predicate
-## TexPol-Net & Morpher: Morphology-Aware Segmentation and Forecasting of Bacterial Swarming
+## Morpher: Morphology-Aware Segmentation and Forecasting of Bacterial Swarming
 
 This repository provides the **complete, paper-aligned implementation** of a morphology-aware framework for making bacterial swarming expansion **predictable**.  
 The framework consists of two tightly coupled components:
 
-- **TexPol-Net** — a texture- and geometry-aware **segmentation network** that produces stable, boundary-resolved swarm masks.
-- **Morpher** — an **autoregressive temporal forecasting model** that operates directly in **mask space** to predict the future evolution of swarming colony morphology.
+- **Morpher-S** — a texture- and geometry-aware **segmentation network** that produces stable, boundary-resolved swarm masks.
+- **Morpher-F** — an **autoregressive temporal forecasting model** that operates directly in **mask space** to predict the future evolution of swarming colony morphology.
 
 TexPol-Net provides a high-quality morphological substrate, while **Morpher serves as the core model** for long-horizon, geometry-consistent forecasting.
 
