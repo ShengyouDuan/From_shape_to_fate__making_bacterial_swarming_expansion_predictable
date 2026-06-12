@@ -1,9 +1,9 @@
-# Morpher
+# Morpher-F
 
 | Item | Description |
 |---|---|
-| Name | **Morpher**: an autoregressive model for temporal binary mask forecasting, aligned with the training and evaluation protocol described in our paper. |
-| What this repo provides | 1) Load sequence-organized YOLO-seg polygon annotations (`.txt`) and rasterize them into binary masks;<br>2) Temporal downsampling with a fixed stride `step`;<br>3) Autoregressive forecasting with **Morpher (GRU/LSTM/RNN/TransformerEncoder)**;<br>4) Report **mIoU, mAP@[.50:.95], HD, HD95, ASSD**, with optional physics-consistency statistics via `--phys_stats`. |
+| Name | **Morpher-F**: an autoregressive model for temporal binary mask forecasting, aligned with the training and evaluation protocol described in our paper. |
+| What this repo provides | 1) Load sequence-organized YOLO-seg polygon annotations (`.txt`) and rasterize them into binary masks;<br>2) Temporal downsampling with a fixed stride `step`;<br>3) Autoregressive forecasting with **Morpher-F (GRU/LSTM/RNN/TransformerEncoder)**;<br>4) Report **mIoU, mAP@[.50:.95], HD, HD95, ASSD**, with optional physics-consistency statistics via `--phys_stats`. |
 | Method overview (paper-consistent) | **SpatialEncoder** encodes each binary mask frame into a latent vector `z_t` and retains multi-scale features for skip connections in the decoder;<br>**Morphon** performs attention-based aggregation over observed latent states with a gated fusion (`alpha`) to form a compact history summary;<br>Temporal modeling uses `arch ∈ {gru, lstm, rnn, transformer}` with sinusoidal temporal positional encoding;<br>Inference is **strict autoregressive**: each predicted frame is fed back (sigmoid → re-encode → append to history) until all future frames are generated. |
 | Requirements | Python 3.9+ (3.10 / 3.11 recommended);<br>PyTorch 2.0+ (2.1+ recommended when enabling `torch.compile`);<br>CUDA optional (GPU automatically enables AMP mixed precision);<br>Works on Windows / Linux. |
 | Installation | Use a virtual environment if possible. Minimal dependencies:<br><pre><code>pip install numpy scipy pillow torchvision opencv-python tqdm timm</code></pre> |
@@ -36,7 +36,7 @@ dataset/
 | Training command (Transformer example) | See command below |
 
 ```bash
-python Morpher.py train ^
+python Morpher-F.py train ^
   --arch transformer ^
   --train_path dataset\train ^
   --val_path dataset\test ^
@@ -54,7 +54,7 @@ python Morpher.py train ^
 ```
 | Test command (Transformer example) | See command below |
 ```
-python Morpher.py test ^
+python Morpher-F.py test ^
   --arch transformer ^
   --weights results\best_transformer.pth ^
   --test_path dataset\test ^
@@ -69,13 +69,13 @@ python Morpher.py test ^
 
 ## Citation
 
-If you use **Morpher** in your research, please cite the accompanying paper:
+If you use **Morpher-F** in your research, please cite the accompanying paper:
 
-> *[From shape to fate: making bacterial swarming expansion predictable](https://arxiv.org/abs/2602.01056)*
+> *[Population-Scale Advancing Interface Modeling Reveals How Bacterial Swarms Encode Future Spatial Architecture](https://arxiv.org/abs/2602.01056)*
 
 ```bibtex
 @article{duan2026shapetofate,
-  title     = {From shape to fate: making bacterial swarming expansion predictable},
+  title     = {Population-Scale Advancing Interface Modeling Reveals How Bacterial Swarms Encode Future Spatial Architecture},
   author    = {Duan, Shengyou and Wang, Zhaoyang and Xiong, Kaiyi and Zhu, Jin and Gu, Pengxi and Chen, Weijie and Xin, Hongyi and Qu, Zijie},
   journal   = {arXiv preprint arXiv:2602.01056},
   year      = {2026},
