@@ -4,7 +4,7 @@ torch.backends.cudnn.deterministic = False
 torch.backends.cudnn.benchmark = True
 from ultralytics import YOLO
 if __name__ == '__main__':
-    model = YOLO('TexPol-Net/ultralytics/cfg/models/Texpol-Net/Texpol-Net.yaml')
+    model = YOLO('TexPol-Net/ultralytics/cfg/models/Morpher-S/Morpher-S.yaml')
     model.train(data="TexPol-Net/data.yaml",
                 imgsz=640,
                 epochs=800,
