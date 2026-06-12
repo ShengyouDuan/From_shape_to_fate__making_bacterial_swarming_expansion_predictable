@@ -7,7 +7,7 @@ The framework consists of two tightly coupled components:
 - **Morpher-S** — a texture- and geometry-aware **segmentation network** that produces stable, boundary-resolved swarm masks.
 - **Morpher-F** — an **autoregressive temporal forecasting model** that operates directly in **mask space** to predict the future evolution of swarming colony morphology.
 
-TexPol-Net provides a high-quality morphological substrate, while **Morpher serves as the core model** for long-horizon, geometry-consistent forecasting.
+Morpher-S provides a high-quality morphological substrate, while **Morpher-F serves as the core model** for long-horizon, geometry-consistent forecasting.
 
 ---
 
@@ -20,14 +20,14 @@ Conventional video prediction models often fail to preserve boundary localizatio
 
 This framework reformulates swarming expansion as a **morphological forecasting problem in a geometric state space**:
 
-- **TexPol-Net** stabilizes segmentation by preserving fine-scale front geometry.
-- **Morpher** models the **temporal dynamics of shape**, rather than raw image intensity.
+- **Morpher-S** stabilizes segmentation by preserving fine-scale front geometry.
+- **Morpher-F** models the **temporal dynamics of shape**, rather than raw image intensity.
 
 Both components are evaluated on the **SwarmEvo** dataset.
 
 ---
 
-# Part I — TexPol-Net (Segmentation)
+# Part I — Morpher-S (Segmentation)
 
 ## Training Configuration
 
@@ -36,7 +36,7 @@ Both components are evaluated on the **SwarmEvo** dataset.
 | Framework backend | PyTorch with Ultralytics YOLO interface. Training is built on the Ultralytics training engine. |
 | Determinism | `torch.use_deterministic_algorithms(False)` to allow non-deterministic operations for improved efficiency. |
 | cuDNN settings | `cudnn.deterministic=False`, `cudnn.benchmark=True`, prioritizing throughput over strict determinism. |
-| Model definition | `ultralytics/cfg/models/Texpol-Net/Texpol-Net.yaml`. Users may adjust depth, width, or module composition. |
+| Model definition | `ultralytics/cfg/models/Morpher-S/Morpher-S.yaml`. Users may adjust depth, width, or module composition. |
 | Dataset config | `data.yaml`, defining dataset paths, class names, and splits. |
 | Image size | `imgsz = 640`. |
 | Training epochs | `epochs = 800`. |
@@ -52,26 +52,26 @@ Both components are evaluated on the **SwarmEvo** dataset.
 
 ---
 
-## Dataset (TexPol-Net)
+## Dataset (Morpher-S)
 
-TexPol-Net is trained using the **Segmentation** subset of **[SwarmEvo](https://huggingface.co/datasets/SwarmEvo)**.
+Morpher-S is trained using the **Segmentation** subset of **[SwarmEvo](https://huggingface.co/datasets/SwarmEvo)**.
 
 The dataset provides boundary-resolved polygon annotations in **YOLO-seg format** (`.txt`), paired with raw microscopy images.  
 All dataset paths, splits, and class definitions are specified via `data.yaml`.
 
 ---
 
-# Part II — Morpher (Temporal Forecasting)
+# Part II — Morpher-F (Temporal Forecasting)
 
 ## Model Overview
 
-**Morpher** is an **autoregressive mask-space forecasting model** designed to predict the temporal evolution of swarming colony morphology.
+**Morpher-F** is an **autoregressive mask-space forecasting model** designed to predict the temporal evolution of swarming colony morphology.
 
-Instead of predicting raw pixels or videos, Morpher forecasts **binary segmentation masks**, aligning directly with the biological interpretation of swarming growth as front advancement and curvature evolution.
+Instead of predicting raw pixels or videos, Morpher-F forecasts **binary segmentation masks**, aligning directly with the biological interpretation of swarming growth as front advancement and curvature evolution.
 
 ---
 
-## What Morpher Provides
+## What Morpher-F Provides
 
 - Loading sequence-organized YOLO-seg polygon annotations
 - Rasterization into binary masks
@@ -116,9 +116,9 @@ pip install numpy scipy pillow torchvision opencv-python tqdm timm
 
 ---
 
-## Dataset (Morpher)
+## Dataset (Morpher-F)
 
-Morpher uses the **Prediction** subset of **[SwarmEvo](https://huggingface.co/datasets/SwarmEvo)**.  
+Morpher-F uses the **Prediction** subset of **[SwarmEvo](https://huggingface.co/datasets/SwarmEvo)**.  
 Only the `SwarmEvo/prediction/` directory is required.
 
 ### Directory Layout
@@ -190,7 +190,7 @@ Composite loss:
 ### Windows
 
 ```bat
-python Morpher.py train ^
+python Morpher-F.py train ^
   --arch transformer ^
   --train_path dataset\train ^
   --val_path dataset\test ^
@@ -210,7 +210,7 @@ python Morpher.py train ^
 ### Linux / macOS
 
 ```bash
-python Morpher.py train \
+python Morpher-F.py train \
   --arch transformer \
   --train_path dataset/train \
   --val_path dataset/test \
@@ -231,21 +231,21 @@ python Morpher.py train \
 
 ## Entry Point
 
-- Single-file design: `Morpher.py`
+- Single-file design: `Morpher-F.py`
 - Supported commands: `train`, `test`
 
 ---
 
 ## Citation
 
-If you use **TexPol-Net** or **Morpher**, please cite:
+If you use **Morpher-S** or **Morpher-F**, please cite:
 
-*From shape to fate: making bacterial swarming expansion predictable*  
+*Population-Scale Advancing Interface Modeling Reveals How Bacterial Swarms Encode Future Spatial Architecture*  
 https://arxiv.org/abs/2602.01056
 
 ```bibtex
-@article{duan2026shapetofate,
-  title   = {From shape to fate: making bacterial swarming expansion predictable},
+@article{duan2026population,
+  title   = {Population-Scale Advancing Interface Modeling Reveals How Bacterial Swarms Encode Future Spatial Architecture},
   author  = {Duan, Shengyou and Wang, Zhaoyang and Xiong, Kaiyi and Zhu, Jin and Gu, Pengxi and Chen, Weijie and Xin, Hongyi and Qu, Zijie},
   journal = {arXiv preprint arXiv:2602.01056},
   year    = {2026},
