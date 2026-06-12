@@ -80,7 +80,7 @@ Instead of predicting raw pixels or videos, Morpher-F forecasts **binary segment
   - GRU
   - LSTM
   - RNN
-  - TransformerEncoder
+  - Transformer Encoder
 - Quantitative evaluation using:
   - **mIoU**
   - **mAP@[.50:.95]**
