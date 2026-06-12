@@ -39,7 +39,7 @@ If you use **Morpher-S** in your research, please cite the accompanying paper:
 > *[Population-Scale Advancing Interface Modeling Reveals How Bacterial Swarms Encode Future Spatial Architecture](https://arxiv.org/abs/2602.01056)*
 
 ```bibtex
-@article{duan2026shapetofate,
+@article{duan2026population,
   title     = {Population-Scale Advancing Interface Modeling Reveals How Bacterial Swarms Encode Future Spatial Architecture},
   author    = {Duan, Shengyou and Wang, Zhaoyang and Xiong, Kaiyi and Zhu, Jin and Gu, Pengxi and Chen, Weijie and Xin, Hongyi and Qu, Zijie},
   journal   = {arXiv preprint arXiv:2602.01056},
