@@ -1,4 +1,4 @@
-# TexPol-Net
+# Morpher-S
 ## Training Configuration
 
 | Item               | Description                                                  |
@@ -6,7 +6,7 @@
 | Framework backend  | PyTorch with Ultralytics YOLO interface. The training pipeline is built on top of the Ultralytics training engine. |
 | Determinism        | `torch.use_deterministic_algorithms(False)`. Allows non-deterministic operations to improve training efficiency. This setting can be adjusted to enforce strict reproducibility if required. |
 | cuDNN settings     | `cudnn.deterministic=False`, `cudnn.benchmark=True`. Disables deterministic convolution selection and enables cuDNN benchmarking for faster kernel selection. Both options are configurable depending on reproducibility or performance requirements. |
-| Model definition   | `ultralytics/cfg/models/Texpol-Net/Texpol-Net.yaml`. Specifies the network architecture of Texpol-Net. Users may modify this YAML file to adjust model depth, width, or module composition. |
+| Model definition   | `ultralytics/cfg/models/Morpher-S/Morpher-S.yaml`. Specifies the network architecture of Morpher-S. Users may modify this YAML file to adjust model depth, width, or module composition. |
 | Dataset config     | `data.yaml`. Defines dataset paths, class names, and data splits. The path and dataset content can be freely changed for different experiments. |
 | Image size         | `imgsz = 640`. Input image resolution used during training. This value can be adjusted based on dataset characteristics and available computational resources. |
 | Training epochs    | `epochs = 800`. Total number of training epochs. Can be increased or decreased depending on convergence behavior and dataset size. |
@@ -24,7 +24,7 @@
 
 ## Dataset
 
-Training of **TexPol-Net** uses the **Segmentation** subset of **[SwarmEvo](https://huggingface.co/datasets/SwarmEvo)**.
+Training of **Morpher-S** uses the **Segmentation** subset of **[SwarmEvo](https://huggingface.co/datasets/SwarmEvo)**.
 
 The dataset provides boundary-resolved polygon annotations of swarming colonies in **YOLO-seg format** (`.txt`), paired with the corresponding raw microscopy images. These annotations capture diffuse and fingered swarm fronts and serve as the supervision signal for texture- and geometry-aware segmentation.
 
@@ -34,7 +34,7 @@ All dataset paths, splits, and class definitions are specified via `data.yaml` a
 
 ## Citation
 
-If you use **TexPol-Net** in your research, please cite the accompanying paper:
+If you use **Morpher-S** in your research, please cite the accompanying paper:
 
 > *[From shape to fate: making bacterial swarming expansion predictable](https://arxiv.org/abs/2602.01056)*
 
